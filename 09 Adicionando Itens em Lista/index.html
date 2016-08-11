@@ -1,0 +1,56 @@
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <script src="../angular.min.js"></script>
+</head>
+
+<body ng-app="myApp" ng-controller="myCtrl">
+    <h1>09 Adicionando item na lista</h1>
+    <p>Usaremos nosso primeiro botão até agora, ele chamará uma função do nosso controller.</p>
+    <hr />
+    <div>
+        <h3>Adicionar um novo pokémon</h3>
+        <p>
+            <input type="text" ng-model="novoPokemon" placeholder="Nome do Pokémon" />
+            <input type="button" ng-click="addPokemon()" value="Add" />
+        </p>
+        <hr/>
+        <p>
+            <input type="text" ng-model="filtro" placeholder="Filtrar os pokémons" />
+        </p>
+        <div>
+            <h3>Pokémons ordem ascendente</h3>
+            <ul>
+                <li ng-repeat="pokemon in pokemons | filter: filtro | orderBy">{{pokemon}}</li>
+            </ul>
+        </div>
+        <div>
+            <h3>Pokémons ordem descendente</h3>
+            <ul>
+                <li ng-repeat="pokemon in pokemons | filter: filtro | orderBy:[]:true">{{pokemon}}</li>
+            </ul>
+
+        </div>
+    </div>
+</body>
+
+<script>
+    var app = angular.module('myApp', []);
+
+    app.controller('myCtrl', function ($scope) {
+        $scope.pokemons = [
+           'Pikachu',
+           'Charmander',
+           'Squirtle',
+           'Bulbassaur'
+       ];
+
+        $scope.addPokemon = function () {
+            $scope.pokemons.push($scope.novoPokemon);
+            $scope.novoPokemon = null;
+        }
+    });
+</script>
+
+</html>

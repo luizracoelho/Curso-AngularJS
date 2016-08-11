@@ -1,0 +1,45 @@
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <script src="../angular.min.js"></script>
+</head>
+
+<body ng-app="myApp" ng-controller="myCtrl">
+    <h1>08 Estrutura de Repetição no Ctrl</h1>
+    <p>Utilizando <em>ng-repeat</em> e o <em>filter</em> no controller e apresentando o <em>orderBy</em>.</p>
+    <hr />
+    <div>
+        <p>
+            <input type="text" ng-model="filtro" placeholder="Filtrar os pokémons" />
+        </p>
+        <div>
+            <h3>Pokémons ordem ascendente</h3>
+            <ul>
+                <li ng-repeat="pokemon in pokemons | filter: filtro | orderBy">{{pokemon}}></li>
+            </ul>
+        </div>
+        <div>
+            <h3>Pokémons ordem descendente</h3>
+            <ul>
+                <li ng-repeat="pokemon in pokemons | filter: filtro | orderBy:[]:true">{{pokemon}}</li>
+            </ul>
+
+        </div>
+    </div>
+</body>
+
+<script>
+    var app = angular.module('myApp', []);
+
+    app.controller('myCtrl', function ($scope) {
+        $scope.pokemons = [
+           'Pikachu',
+           'Charmander',
+           'Squirtle',
+           'Bulbassaur'
+       ];
+    });
+</script>
+
+</html>

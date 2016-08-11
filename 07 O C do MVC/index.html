@@ -1,0 +1,35 @@
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <script src="../angular.min.js"></script>
+</head>
+
+<body ng-app="myApp" ng-controller="myCtrl">
+    <h1>07 O "C" do MVC</h1>
+    <p>Enfim o <em>ng-controller</em>, porém, também temos que aprender sobre os <em>modules</em> e o <em>$scope</em>.</p>
+    <hr />
+    <h3>Indíce de massa corporal</h3>
+    <p>
+        <input type="text" ng-model="nome" placeholder="Digite seu nome aqui" />
+        <input type="number" ng-model="altura" placeholder="Digite sua altura aqui" /><em>m</em>
+        <input type="number" ng-model="peso" placeholder="Digite seu peso aqui" /><em>kg</em>
+
+    </p>
+    <p>
+        <strong>{{nome || "Usuário"}}, seu IMC é {{imc() | number:2}}!</strong>
+    </p>
+
+    <script>
+        var app = angular.module('myApp', []);
+
+        app.controller('myCtrl', function ($scope) {
+            $scope.imc = function () {
+                var altura2 = $scope.altura * $scope.altura;
+                return $scope.peso / altura2;
+            }
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,38 @@
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <script src="../angular.min.js"></script>
+</head>
+
+<body ng-app>
+    <h1>02 Operações Básicas</h1>
+    <p>Executando operações matemáticas básicas com <em>angularJS</em>.</p>
+    <hr />
+    <h3>Soma</h3>
+    <p>
+        <input type="number" ng-model="soma1" placeholder="Primeiro número" /> +
+        <input type="number" ng-model="soma2" placeholder="Segundo número" /> =
+        <strong>{{soma1 + soma2 || 0}}</strong>
+    </p>
+    <h3>Subtração</h3>
+    <p>
+        <input type="number" ng-model="sub1" placeholder="Primeiro número" /> -
+        <input type="number" ng-model="sub2" placeholder="Segundo número" /> =
+        <strong>{{sub1 - sub2 || 0}}</strong>
+    </p>
+    <h3>Multiplicação</h3>
+    <p>
+        <input type="number" ng-model="mult1" placeholder="Primeiro número" /> *
+        <input type="number" ng-model="mult2" placeholder="Segundo número" /> =
+        <strong>{{mult1 * mult2 || 0}}</strong>
+    </p>
+    <h3>Divisão</h3>
+    <p>
+        <input type="number" ng-model="div1" placeholder="Primeiro número" /> /
+        <input type="number" ng-model="div2" placeholder="Segundo número" /> =
+        <strong>{{div1 / div2 || 0}}</strong>
+    </p>
+</body>
+
+</html>
