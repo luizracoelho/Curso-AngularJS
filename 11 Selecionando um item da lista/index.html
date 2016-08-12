@@ -1,0 +1,60 @@
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <script src="../angular.min.js"></script>
+
+    <style>
+        .selected {
+            background-color: #eee;
+        }
+    </style>
+</head>
+
+<body ng-app="myApp" ng-controller="myCtrl">
+    <h1>11 Selecionando o item da lista</h1>
+    <p>Vamos aprender a selecionar um item da lista e destacá-lo.</p>
+    <hr />
+    <div>
+        <div ng-if="pokemonSelected">
+            <img ng-src="{{pokemonSelected.imageUrl}}" alt="{{pokemonSelected.name}}" style="max-height: 150px;" />
+            <h3>
+            {{pokemonSelected.name}}
+            <small><em>{{pokemonSelected.type}}</em></small>
+            </h3>
+
+        </div>
+        <p>
+            <input type="text" ng-model="filtro" placeholder="Filtrar os pokémons" />
+        </p>
+        <h3>{{error}}</h3>
+        <ul>
+            <li ng-click="selectPokemon(pokemon._id)" ng-class="{'selected': pokemon._id == pokemonSelected._id}" ng-repeat="pokemon in pokemons | filter: filtro | orderBy: 'name'">
+                <img ng-src="{{pokemon.imageUrl}}" alt="{{pokemon.name}}" style="max-width: 50px;" />
+                <strong>{{pokemon.name}}</strong> <em>{{pokemon.type}}</em>
+            </li>
+        </ul>
+    </div>
+</body>
+
+<script>
+    var app = angular.module('myApp', []);
+    app.controller('myCtrl', function ($scope, $http) {
+
+        $http.get("http://localhost:3000/pokemons")
+            .then(function (resp) {
+                $scope.pokemons = resp.data;
+            }, function () {
+                $scope.error = "Erro! Não foi possível carregar os pokémons.";
+            });
+
+        $scope.selectPokemon = function (id) {
+            $scope.pokemonSelected = $scope.pokemons.filter(function (pokemon) {
+                return pokemon._id == id;
+            })[0];
+        }
+
+    });
+</script>
+
+</html>

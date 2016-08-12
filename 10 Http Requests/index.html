@@ -15,7 +15,7 @@
         </p>
         <h3>{{error}}</h3>
         <ul>
-            <li ng-repeat="pokemon in pokemons | filter: filtro | orderBy">
+            <li ng-repeat="pokemon in pokemons | filter: filtro | orderBy: 'name'">
                 <img ng-src="{{pokemon.imageUrl}}" alt="{{pokemon.nome}}" style="max-width: 50px;" />
                 <strong>{{pokemon.name}}</strong> <em>{{pokemon.type}}</em>
             </li>

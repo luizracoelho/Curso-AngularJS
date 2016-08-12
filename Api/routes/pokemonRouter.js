@@ -33,10 +33,6 @@ router.put('/:id', function (req, res) {
     var type = req.body.type;
     var imageUrl = req.body.imageUrl;
 
-    console.log('name', name);
-    console.log('imageUrl', imageUrl);
-
-
     pokemonController.update(id, name, type, imageUrl, function (result) {
         res.json(result);
     });
