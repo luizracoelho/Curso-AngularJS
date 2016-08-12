@@ -24,9 +24,10 @@ module.exports.find = function (id, callback) {
     });
 };
 
-module.exports.save = function (name, imageUrl, callback) {
+module.exports.save = function (name, type, imageUrl, callback) {
     new Pokemon({
         'name': name,
+        'type': type,
         'imageUrl': imageUrl
     }).save(function (error, pokemon) {
         if (error) {
@@ -39,10 +40,13 @@ module.exports.save = function (name, imageUrl, callback) {
     });
 };
 
-module.exports.update = function (id, name, imageUrl, callback) {
+module.exports.update = function (id, name, type, imageUrl, callback) {
     Pokemon.findById(id, function (error, pokemon) {
         if (name) {
             pokemon.name = name;
+        }
+        if (type) {
+            pokemon.type = type;
         }
         if (imageUrl) {
             pokemon.imageUrl = imageUrl;

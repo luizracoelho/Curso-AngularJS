@@ -4,6 +4,7 @@ var Schema = mongoose.Schema;
 
 var PokemonSchema = new Schema({
     name: String,
+    type: String,
     imageUrl: String
 });
 
