@@ -1,0 +1,39 @@
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <script src="../angular.min.js"></script>
+</head>
+
+<body ng-app="myApp" ng-controller="myCtrl">
+    <h1>10 Http Requests</h1>
+    <p>Conhecendo o <em>$http</em> e carregando valores remotos em nossa aplicação</em>.</p>
+    <hr />
+    <div>
+        <p>
+            <input type="text" ng-model="filtro" placeholder="Filtrar os pokémons" />
+        </p>
+        <h3>{{error}}</h3>
+        <ul>
+            <li ng-repeat="pokemon in pokemons | filter: filtro | orderBy">
+                <img ng-src="{{pokemon.imageUrl}}" alt="{{pokemon.nome}}" style="max-width: 50px;" />
+                <strong>{{pokemon.name}}</strong> <em>{{pokemon.type}}</em>
+            </li>
+        </ul>
+    </div>
+</body>
+
+<script>
+    var app = angular.module('myApp', []);
+    app.controller('myCtrl', function ($scope, $http) {
+
+        $http.get("http://localhost:3000/pokemons")
+            .then(function (resp) {
+                $scope.pokemons = resp.data;
+            }, function () {
+                $scope.error = "Erro! Não foi possível carregar os pokémons.";
+            });
+    });
+</script>
+
+</html>

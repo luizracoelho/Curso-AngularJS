@@ -17,8 +17,8 @@ router.get('/:id', function (req, res) {
 });
 
 router.post('/', function (req, res) {
-    var name = req.params.name;
-    var imageUrl = req.params.imageUrl;
+    var name = req.body.name;
+    var imageUrl = req.body.imageUrl;
 
     pokemonController.save(name, imageUrl, function (result) {
         res.json(result);
@@ -26,10 +26,14 @@ router.post('/', function (req, res) {
 });
 
 router.put('/:id', function (req, res) {
-    var name = req.params.name;
-    var imageUrl = req.params.imageUrl;
-
     var id = req.params.id;
+
+    var name = req.body.name;
+    var imageUrl = req.body.imageUrl;
+
+    console.log('name', name);
+    console.log('imageUrl', imageUrl);
+
 
     pokemonController.update(id, name, imageUrl, function (result) {
         res.json(result);
