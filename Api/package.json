@@ -1,22 +1,21 @@
 {
-  "name": "api-curso-angularjs",
-  "version": "1.0.0",
-  "description": "Api do curso de angularJS",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "keywords": [
+    "name": "api-curso-angularjs",
+    "version": "1.0.0",
+    "description": "Api do curso de angularJS",
+    "main": "index.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "keywords": [
     "angular",
     "curso",
     "api"
   ],
-  "author": "Luiz R. A. Coelho",
-  "license": "ISC",
-  "dependencies": {
-    "body-parser": "^1.15.2",
-    "express": "^4.14.0",
-    "mongoose": "^4.5.8",
-    "validator": "^5.5.0"
-  }
+    "author": "Luiz R. A. Coelho",
+    "license": "ISC",
+    "dependencies": {
+        "body-parser": "^1.15.2",
+        "express": "^4.14.0",
+        "mongoose": "^4.5.8",
+    }
 }
