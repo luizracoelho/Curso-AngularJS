@@ -1,0 +1,22 @@
+<h2>Remover</h2>
+
+<h3>{{vm.error}}</h3>
+
+<form name="form" ng-submit="vm.removePokemon()" ng-init="vm.find()">
+
+    <div>
+        <img ng-src="{{vm.pokemon.imageUrl}}" alt="{{vm.pokemon.name}}" style="max-height: 150px;" />
+        <h3>
+            {{vm.pokemon.name}}
+            <small><em>{{vm.pokemon.type}}</em></small>
+        </h3>
+    </div>
+
+    <br/>
+
+    <div>
+        <input type="submit" value="Confirmar" />
+    </div>
+
+</form>
+<a href="#/">Voltar</a>

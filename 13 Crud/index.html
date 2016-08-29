@@ -1,0 +1,107 @@
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <script src="../angular.min.js"></script>
+    <script src="../angular-route.min.js"></script>
+
+    <style>
+        .selected {
+            background-color: #eee;
+        }
+    </style>
+</head>
+
+<body ng-app="myApp" ng-controller="myCtrl">
+    <h1>13 Crud</h1>
+    <p>Agora sim! Vamos criar, editar e remover registros.</p>
+    <hr />
+    <ng-view></ng-view>
+</body>
+
+<script>
+    var app = angular.module('myApp', ['ngRoute']);
+
+    app.config(function ($routeProvider) {
+        $routeProvider
+            .when('/', {
+                templateUrl: 'list.html',
+                controller: 'myCtrl'
+            })
+            .when('/criar', {
+                templateUrl: 'create.html',
+                controller: 'myCtrl'
+            })
+            .when('/editar/:id', {
+                templateUrl: 'edit.html',
+                controller: 'myCtrl'
+            })
+            .when('/remover/:id', {
+                templateUrl: 'remove.html',
+                controller: 'myCtrl'
+            })
+            .otherwise({
+                redirectTo: '/'
+            });
+    });
+
+    app.controller('myCtrl', function ($scope, $http, $routeParams) {
+
+        $scope.list = function () {
+            $http.get("http://localhost:3000/pokemons")
+                .then(function (resp) {
+                    $scope.pokemons = resp.data;
+                }, function () {
+                    $scope.error = "Erro! Não foi possível carregar os pokémons.";
+                });
+        };
+
+        $scope.find = function () {
+            $http.get("http://localhost:3000/pokemons/" + $routeParams.id)
+                .then(function (resp) {
+                    $scope.pokemon = resp.data;
+                }, function () {
+                    $scope.error = "Erro! Não foi possível carregar o pokémon.";
+                });
+        };
+
+        $scope.selectPokemon = function (id) {
+            $scope.pokemonSelected = $scope.pokemons.find(function (pokemon) {
+                return pokemon._id == id;
+            });
+        }
+
+        $scope.createPokemon = function () {
+            $http.post("http://localhost:3000/pokemons", $scope.pokemon)
+                .then(function (resp) {
+                    window.location = "#/";
+                })
+                .error(function () {
+                    $scope.error = "Erro! Não foi possível inserir o pokémon.";
+                });
+        }
+
+        $scope.updatePokemon = function () {
+            $http.put("http://localhost:3000/pokemons/" + $routeParams.id, $scope.pokemon)
+                .then(function (resp) {
+                    window.location = "#/";
+                })
+                .error(function () {
+                    $scope.error = "Erro! Não foi possível editar o pokémon.";
+                });
+        }
+
+        $scope.removePokemon = function () {
+            $http.delete("http://localhost:3000/pokemons/" + $routeParams.id)
+                .then(function (resp) {
+                    window.location = "#/";
+                })
+                .error(function () {
+                    $scope.error = "Erro! Não foi possível remover o pokémon.";
+                });
+        }
+
+    });
+</script>
+
+</html>

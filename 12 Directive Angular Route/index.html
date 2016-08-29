@@ -1,0 +1,66 @@
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <script src="../angular.min.js"></script>
+    <script src="../angular-route.min.js"></script>
+
+    <style>
+        .selected {
+            background-color: #eee;
+        }
+    </style>
+</head>
+
+<body ng-app="myApp" ng-controller="myCtrl">
+    <h1>12 Directive Angular Route</h1>
+    <p>Vamos conhecer o conceito de directives e implementar a Angular Route.</p>
+    <hr />
+    <ng-view></ng-view>
+</body>
+
+<script>
+    var app = angular.module('myApp', ['ngRoute']);
+
+    app.config(function ($routeProvider) {
+        $routeProvider
+            .when('/', {
+                templateUrl: 'list.html',
+                controller: 'myCtrl'
+            })
+            .when('/criar', {
+                templateUrl: 'create.html',
+                controller: 'myCtrl'
+            })
+            .when('/editar/:id', {
+                templateUrl: 'edit.html',
+                controller: 'myCtrl'
+            })
+            .when('/remover/:id', {
+                templateUrl: 'remove.html',
+                controller: 'myCtrl'
+            })
+            .otherwise({
+                redirectTo: '/'
+            });
+    });
+
+    app.controller('myCtrl', function ($scope, $http) {
+
+        $http.get("http://localhost:3000/pokemons")
+            .then(function (resp) {
+                $scope.pokemons = resp.data;
+            }, function () {
+                $scope.error = "Erro! Não foi possível carregar os pokémons.";
+            });
+
+        $scope.selectPokemon = function (id) {
+            $scope.pokemonSelected = $scope.pokemons.find(function (pokemon) {
+                return pokemon._id == id;
+            });
+        }
+
+    });
+</script>
+
+</html>

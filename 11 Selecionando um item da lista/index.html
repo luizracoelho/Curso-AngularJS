@@ -49,9 +49,9 @@
             });
 
         $scope.selectPokemon = function (id) {
-            $scope.pokemonSelected = $scope.pokemons.filter(function (pokemon) {
+            $scope.pokemonSelected = $scope.pokemons.find(function (pokemon) {
                 return pokemon._id == id;
-            })[0];
+            });
         }
 
     });

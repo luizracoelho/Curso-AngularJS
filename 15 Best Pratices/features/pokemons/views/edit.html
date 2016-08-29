@@ -1,0 +1,38 @@
+<h2>Editar</h2>
+
+<h3>{{vm.error}}</h3>
+
+<form name="form" ng-submit="vm.updatePokemon()" ng-init="vm.find()">
+
+    <div>
+        <label for="name">Nome</label>
+        <input id="name" name="name" type="text" ng-model="vm.pokemon.name" required />
+        <p style="color: red;" ng-show="form.name.$invalid && !form.name.$pristine">Campo obrigatório.</p>
+    </div>
+
+    <br />
+
+    <div>
+        <label for="type">Tipo</label>
+        <input id="type" name="type" type="text" ng-model="vm.pokemon.type" required />
+        <p style="color: red;" ng-show="form.type.$invalid && !form.type.$pristine">Campo obrigatório.</p>
+    </div>
+
+    <br />
+
+    <div>
+        <label for="imageUrl">Url da Imagem</label>
+        <input id="imageUrl" name="imageUrl" type="url" ng-model="vm.pokemon.imageUrl" required/>
+        <p style="color: red;" ng-show="form.imageUrl.$error.url && !form.imageUrl.$pristine">Url inválida.</p>
+        <p style="color: red;" ng-show="form.imageUrl.$error.required && !form.imageUrl.$pristine">Campo obrigatório.</p>
+    </div>
+
+    <br/>
+
+    <div>
+        <input type="submit" value="Confirmar" />
+    </div>
+
+</form>
+
+<a href="#/">Voltar</a>

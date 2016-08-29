@@ -1,0 +1,183 @@
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <script src="../angular.min.js"></script>
+    <script src="../angular-route.min.js"></script>
+
+    <style>
+        .selected {
+            background-color: #eee;
+        }
+    </style>
+</head>
+
+<body ng-app="myApp" ng-controller="myCtrl">
+    <h1>14 Angular Services</h1>
+    <p>Vamos aprender o conceito de <em>services</em> no angularJs.</p>
+    <hr />
+    <ng-view></ng-view>
+</body>
+
+<script>
+    var app = angular.module('myApp', ['ngRoute']);
+
+    app.config(function ($routeProvider) {
+        $routeProvider
+            .when('/', {
+                templateUrl: 'list.html',
+                controller: 'myCtrl'
+            })
+            .when('/criar', {
+                templateUrl: 'create.html',
+                controller: 'myCtrl'
+            })
+            .when('/editar/:id', {
+                templateUrl: 'edit.html',
+                controller: 'myCtrl'
+            })
+            .when('/remover/:id', {
+                templateUrl: 'remove.html',
+                controller: 'myCtrl'
+            })
+            .otherwise({
+                redirectTo: '/'
+            });
+    });
+
+    app.controller('myCtrl', function ($scope, $routeParams, myService) {
+
+        $scope.selectPokemon = function (id) {
+            $scope.pokemonSelected = $scope.pokemons.find(function (pokemon) {
+                return pokemon._id == id;
+            });
+        }
+
+        $scope.list = function () {
+            myService.list()
+                .then(function (pokemons) {
+                    $scope.pokemons = pokemons;
+                }, function (err) {
+                    $scope.error = err;
+                });
+        }
+
+        $scope.find = function () {
+            myService.find($routeParams.id)
+                .then(function (pokemon) {
+                    $scope.pokemon = pokemon;
+                }, function (err) {
+                    $scope.error = err;
+                });
+        }
+
+        $scope.createPokemon = function () {
+            myService.create($scope.pokemon)
+                .then(function (resp) {
+                    window.location = "#/";
+                }, function (err) {
+                    $scope.error = err;
+                });
+        }
+
+        $scope.updatePokemon = function () {
+            myService.update($routeParams.id, $scope.pokemon)
+                .then(function (resp) {
+                    window.location = "#/";
+                }, function (err) {
+                    $scope.error = err;
+                });
+        }
+
+        $scope.removePokemon = function () {
+            myService.remove($routeParams.id)
+                .then(function (resp) {
+                    window.location = "#/";
+                }, function (err) {
+                    $scope.error = err;
+                });
+        }
+
+    });
+
+    app.service('myService', function ($http, $q) {
+
+        var Service = function () {
+            this.list = list;
+            this.find = find;
+            this.create = create;
+            this.update = update;
+            this.remove = remove;
+        };
+
+        return new Service();
+
+        function list() {
+            var def = $q.defer();
+
+            $http.get("http://localhost:3000/pokemons")
+                .then(function (resp) {
+                    def.resolve(resp.data);
+                }, function () {
+                    def.reject("Erro! Não foi possível carregar os pokémons.");
+                });
+
+            return def.promise;
+        }
+
+        function find(id) {
+            var def = $q.defer();
+
+            $http.get("http://localhost:3000/pokemons/" + id)
+                .then(function (resp) {
+                    def.resolve(resp.data);
+                }, function () {
+                    def.reject("Erro! Não foi possível carregar o pokémon.");
+                });
+
+            return def.promise;
+        }
+
+        function create(pokemon) {
+            var def = $q.defer();
+
+            $http.post("http://localhost:3000/pokemons", pokemon)
+                .then(function (resp) {
+                    def.resolve(resp.data);
+                }, function () {
+                    def.reject("Erro! Não foi possível inserir o pokémon.");
+                });
+
+            return def.promise;
+        }
+
+        function update(id, pokemon) {
+            var def = $q.defer();
+
+            $http.put("http://localhost:3000/pokemons/" + id, pokemon)
+                .then(function (resp) {
+                    def.resolve("Pokémon editado com sucesso");
+                }, function () {
+                    def.reject("Erro! Não foi possível editar o pokémon.");
+                });
+
+            return def.promise;
+        }
+
+        function remove(id) {
+            var def = $q.defer();
+
+            $http.delete("http://localhost:3000/pokemons/" + id)
+                .then(function (resp) {
+                    def.resolve("Pokémon removido com sucesso");
+                }, function () {
+                    def.reject("Erro! Não foi possível remover o pokémon.");
+                });
+
+            return def.promise;
+        }
+
+    });
+</script>
+
+</html>

@@ -1,0 +1,28 @@
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <script src="../angular.min.js"></script>
+    <script src="../angular-route.min.js"></script>
+
+    <!-- Scripts da aplicação -->
+    <script src="configs/app.config.js"></script>
+    <script src="configs/route.config.js"></script>
+    <script src="features/pokemons/pokemon.service.js"></script>
+    <script src="features/pokemons/pokemon.controller.js"></script>
+
+    <style>
+        .selected {
+            background-color: #eee;
+        }
+    </style>
+</head>
+
+<body ng-app="myApp" ng-controller="myCtrl as vm">
+    <h1>15 Best Pratices</h1>
+    <p>As melhores práticas de desnvolvimento sempre devem ser buscadas.</p>
+    <hr />
+    <ng-view></ng-view>
+</body>
+
+</html>

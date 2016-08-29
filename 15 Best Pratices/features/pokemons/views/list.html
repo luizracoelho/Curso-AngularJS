@@ -1,0 +1,28 @@
+<h2>Listar</h2>
+
+<div ng-init="vm.list()">
+    <div ng-if="vm.pokemonSelected">
+        <img ng-src="{{vm.pokemonSelected.imageUrl}}" alt="{{vm.pokemonSelected.name}}" style="max-height: 150px;" />
+        <h3>
+            {{vm.pokemonSelected.name}}
+            <small><em>{{vm.pokemonSelected.type}}</em></small>
+    </h3>
+        <p>
+            <a href="#/editar/{{vm.pokemonSelected._id}}">Editar</a>
+            <a href="#/remover/{{vm.pokemonSelected._id}}">Remover</a>
+        </p>
+
+    </div>
+
+    <p>
+        <input type="text" ng-model="filtro" placeholder="Filtrar os pokémons" />
+        <a href="#/criar">Criar novo pokémon</a>
+    </p>
+    <h3>{{error}}</h3>
+    <ul>
+        <li ng-click="vm.selectPokemon(pokemon._id)" ng-class="{'selected': pokemon._id == vm.pokemonSelected._id}" ng-repeat="pokemon in vm.pokemons | filter: filtro | orderBy: 'name'">
+            <img ng-src="{{pokemon.imageUrl}}" alt="{{pokemon.name}}" style="max-width: 50px;" />
+            <strong>{{pokemon.name}}</strong> <em>{{pokemon.type}}</em>
+        </li>
+    </ul>
+</div>
