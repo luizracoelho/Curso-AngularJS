@@ -4,7 +4,7 @@ Curso de apresentação do framework MVC angularJs
 ## Softwares e arquivos para download
 
 ### Brackets IO
-Software para edição dos arquivos http://brackets.io/
+Software para edição dos arquivos [Brackets IO](http://brackets.io/)
 
 #### Extensões
 * [AngularJS Code Hints](https://github.com/sirajc/Brackets-AngularJS-CodeHints/)
